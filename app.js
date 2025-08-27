@@ -62,3 +62,42 @@ window.onload = function () {
     }
 
     displayPlayers();
+    // Faz o formulário funcionar para adicionar jogadoras
+    let form = document.getElementById("jogadoraForm");
+    form.addEventListener("submit", addPlayer);
+
+    const playerList = document.getElementById('player-list');
+    playerList.addEventListener('click', function (event) {
+        const clickedButton = event.target.closest('.delete-button');// Para nao exibir a mensagem 2 vezes (bug)
+        if (clickedButton) {
+            deletePlayer(clickedButton);
+        }
+    });
+};
+
+// Função para exibir os cards das jogadoras
+function displayPlayers() {
+    const players = JSON.parse(localStorage.getItem("players")) || [];
+    const playerList = document.getElementById('player-list');
+    playerList.innerHTML = ''; // Limpa a lista antes de adicionar os cards
+
+    players.forEach(player => {
+        const playerElement = document.createElement('div');
+        playerElement.classList.add('card-post');
+
+        playerElement.innerHTML = `
+            <img src="${player.foto}" alt="Foto de ${player.nome}" style="max-width:150px;">
+            <h3>${player.nome}</h3>
+            <p>Posição: ${player.posicao}</p>
+            <p>Clube: ${player.clube}</p>          
+            <p>Gols: ${player.gols}</p>
+            <p>Assistências: ${player.assistencias}</p>
+            <p>Jogos: ${player.jogos}</p>
+
+            <button class="edit-button" data-id="${player.id}"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+            <button class="delete-button" data-id="${player.id}"><i class="fa-solid fa-eraser"></i> Apagar</button>
+        `;
+        playerList.appendChild(playerElement);
+    });
+    
+}
