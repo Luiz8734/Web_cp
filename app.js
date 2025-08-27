@@ -56,3 +56,9 @@ let initialPlayers = [
         "favorita": false
     }
 ];
+window.onload = function () {
+    if (localStorage.getItem("players") === null) {
+        localStorage.setItem("players", JSON.stringify(initialPlayers));
+    }
+
+    displayPlayers();
