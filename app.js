@@ -101,3 +101,29 @@ function displayPlayers() {
     });
     
 }
+// Adiciona nova jogadora
+function addPlayer(event) {
+    event.preventDefault();
+
+    const novoJogador = {
+        id: Date.now(), // Garante um ID único baseado no timestamp atual
+        nome: document.getElementById('nome').value,
+        posicao: document.getElementById('posicao').value,
+        clube: document.getElementById('clube').value,
+        foto: document.getElementById('foto').value,
+        gols: Number(document.getElementById('gols').value),
+        assistencias: Number(document.getElementById('assistencias').value),
+        jogos: Number(document.getElementById('jogos').value),
+        favorita: false
+    };
+
+    let players = JSON.parse(localStorage.getItem("players")) || []; // Garante que 'players' é um array
+
+    players.unshift(novoJogador); // Adiciona a nova jogadora no início da lista
+
+    localStorage.setItem("players", JSON.stringify(players));
+
+    document.getElementById('jogadoraForm').reset();
+    alert("Jogadora adicionada com sucesso!");
+    displayPlayers(); // Atualiza a exibição das jogadoras
+}
