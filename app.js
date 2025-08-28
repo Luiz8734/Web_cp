@@ -127,3 +127,13 @@ function addPlayer(event) {
     alert("Jogadora adicionada com sucesso!");
     displayPlayers(); // Atualiza a exibição das jogadoras
 }
+// Função para deletar uma jogadora
+function deletePlayer(buttonElement) {
+    const idToDelete = parseInt(buttonElement.dataset.id);
+    let players = JSON.parse(localStorage.getItem("players")) || [];
+
+    localStorage.setItem("players", JSON.stringify(players.filter(player => player.id !== idToDelete)));
+
+    displayPlayers(); // Atualiza a exibição das jogadoras após a exclusão
+    alert("Jogadora apagada com sucesso!");
+}
