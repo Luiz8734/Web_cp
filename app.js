@@ -137,3 +137,74 @@ function deletePlayer(buttonElement) {
     displayPlayers(); // Atualiza a exibição das jogadoras após a exclusão
     alert("Jogadora apagada com sucesso!");
 }
+
+function openEditForm(playerId) {
+    const players = JSON.parse(localStorage.getItem("players")) || [];
+    const player = players.find(p => p.id == playerId);
+
+    if (!player) return;
+
+    document.getElementById("edit-id").value = player.id;
+    document.getElementById("edit-nome").value = player.nome;
+    document.getElementById("edit-posicao").value = player.posicao;
+    document.getElementById("edit-clube").value = player.clube;
+    document.getElementById("edit-foto").value = player.foto;
+    document.getElementById("edit-gols").value = player.gols;
+    document.getElementById("edit-assistencias").value = player.assistencias;
+    document.getElementById("edit-jogos").value = player.jogos;
+
+    document.getElementById("edit-section").style.display = "block";
+    document.getElementById("edit-section").scrollIntoView({ behavior: "smooth" });
+}
+
+// funcao para salvar edição
+function saveEditedPlayer(event) {
+    event.preventDefault();
+
+    const id = parseInt(document.getElementById("edit-id").value);
+    let players = JSON.parse(localStorage.getItem("players")) || [];
+
+    players = players.map(player => {
+        if (player.id === id) {
+            return {
+                ...player,
+                nome: document.getElementById("edit-nome").value,
+                posicao: document.getElementById("edit-posicao").value,
+                clube: document.getElementById("edit-clube").value,
+                foto: document.getElementById("edit-foto").value,
+                gols: Number(document.getElementById("edit-gols").value),
+                assistencias: Number(document.getElementById("edit-assistencias").value),
+                jogos: Number(document.getElementById("edit-jogos").value)
+            };
+        }
+        return player;
+    });
+
+    localStorage.setItem("players", JSON.stringify(players));
+    displayPlayers();
+
+    document.getElementById("editJogadoraForm").reset();
+    document.getElementById("edit-section").style.display = "none";
+
+    alert("Jogadora editada com sucesso!");
+}
+
+// adiciona os listeners do botão editar e do formulario de edicao
+window.onload = (function(oldLoad){
+    return function() {
+        if (typeof oldLoad === 'function') oldLoad();
+
+        document.getElementById('player-list').addEventListener('click', function (event) {
+            const editBtn = event.target.closest('.edit-button');
+            if (editBtn) {
+                openEditForm(editBtn.dataset.id);
+            }
+        });
+
+        // submit do formulário de edicao
+        const editForm = document.getElementById("editJogadoraForm");
+        if (editForm) {
+            editForm.addEventListener("submit", saveEditedPlayer);
+        }
+    }
+})(window.onload);
