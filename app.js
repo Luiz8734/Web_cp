@@ -75,31 +75,40 @@ window.onload = function () {
     });
 };
 
-// Função para exibir os cards das jogadoras
 function displayPlayers() {
     const players = JSON.parse(localStorage.getItem("players")) || [];
     const playerList = document.getElementById('player-list');
-    playerList.innerHTML = ''; // Limpa a lista antes de adicionar os cards
+    playerList.innerHTML = '';
 
     players.forEach(player => {
         const playerElement = document.createElement('div');
-        playerElement.classList.add('card-post');
+        playerElement.classList.add('card-post', 'mb-4', 'p-3', 'shadow-sm', 'border', 'rounded');
 
         playerElement.innerHTML = `
-            <img src="${player.foto}" alt="Foto de ${player.nome}" style="max-width:150px;">
-            <h3>${player.nome}</h3>
+            <img src="${player.foto}" alt="Foto de ${player.nome}" style="max-width:150px;" class="mb-2">
+
+            <div class="d-flex justify-content-between align-items-center">
+              <h3>${player.nome}</h3>
+              <button class="favorite-button btn btn-light btn-sm" data-id="${player.id}" title="Favoritar">
+                <i class="${player.favorita ? 'fas' : 'far'} fa-star text-warning"></i>
+              </button>
+            </div>
+
             <p>Posição: ${player.posicao}</p>
             <p>Clube: ${player.clube}</p>          
             <p>Gols: ${player.gols}</p>
             <p>Assistências: ${player.assistencias}</p>
             <p>Jogos: ${player.jogos}</p>
 
-            <button class="edit-button" data-id="${player.id}"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-            <button class="delete-button" data-id="${player.id}"><i class="fa-solid fa-eraser"></i> Apagar</button>
+            <button class="edit-button btn btn-warning btn-sm" data-id="${player.id}">
+              <i class="fa-solid fa-pen-to-square"></i> Editar
+            </button>
+            <button class="delete-button btn btn-danger btn-sm" data-id="${player.id}">
+              <i class="fa-solid fa-eraser"></i> Apagar
+            </button>
         `;
         playerList.appendChild(playerElement);
     });
-    
 }
 // Adiciona nova jogadora
 function addPlayer(event) {
@@ -208,3 +217,21 @@ window.onload = (function(oldLoad){
         }
     }
 })(window.onload);
+
+document.getElementById("player-list").addEventListener("click", function(event) {
+    const favBtn = event.target.closest(".favorite-button");
+    if (favBtn) {
+        const id = parseInt(favBtn.dataset.id);
+        let players = JSON.parse(localStorage.getItem("players")) || [];
+
+        players = players.map(player => {
+            if (player.id === id) {
+                player.favorita = !player.favorita; // alterna true/false
+            }
+            return player;
+        });
+
+        localStorage.setItem("players", JSON.stringify(players));
+        displayPlayers(); // recarrega com ícone atualizado
+    }
+});
