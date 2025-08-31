@@ -235,3 +235,4 @@ document.getElementById("player-list").addEventListener("click", function(event)
         displayPlayers(); // recarrega com ícone atualizado
     }
 });
+
