@@ -3,7 +3,7 @@
 ## 📌 Descrição
 
 Este projeto é um **sistema de cadastro de jogadoras de futebol
-feminino**, desenvolvido para a disciplina da faculdade.\
+feminino**.
 O sistema permite **adicionar, listar, editar, favoritar e excluir
 jogadoras**, armazenando os dados localmente no navegador por meio do
 **LocalStorage**, simulando um banco de dados.
@@ -49,10 +49,6 @@ estatísticas e foto.
 
 1.  Faça o download ou clone o repositório:
 
-    ``` bash
-    git clone https://github.com/seu-repositorio/projeto-gerenciador-jogadoras.git
-    ```
-
 2.  Abra o arquivo **index.html** em qualquer navegador moderno.\
 
 3.  O sistema já estará em funcionamento! 🚀
@@ -61,15 +57,15 @@ estatísticas e foto.
 
 ## 👨‍💻 Integrantes do Grupo
 
--   **Kevin Carvalho Venancio** -- RM: 561459\
--   **Luiz Antonio Morais** -- RM: 562142\
+-   **Kevin Carvalho Venancio** -- RM: 561459
+-   **Luiz Antonio Morais** -- RM: 562142
 -   **Nicolas Barnabe da Cruz** -- RM: 561997
 
 ------------------------------------------------------------------------
 
 ## 📸 Demonstração (Sugestão)
 
-Inclua aqui prints da aplicação mostrando:\
-- A lista de jogadoras carregada\
-- O formulário de adição\
+Inclua aqui prints da aplicação mostrando:
+- A lista de jogadoras carregada
+- O formulário de adição
 - A tela de edição
